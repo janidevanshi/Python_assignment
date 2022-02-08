@@ -25,46 +25,48 @@ digit_dict = {
     '9': 'nine'
 }
 
-# function to find GCD
 
+class calc_gcd():
+    def to_num(self, str):
+        # starting and ending pointer to get the substring from the input
+        start = 0
+        end = 0
+        number = ""
 
-def gcd(x, y):
-    if(y == 0):
-        return x
-    else:
-        return gcd(y, x % y)
+        while(end < len(str)):
+            # checking the substring is present or not if present then change it to the number
+            if(word_dict.get(str[start:end+1])):
+                number += word_dict.get(str[start:end+1])
+                # moving to next character after finding substring
+                start = end+1
 
-# function to convert string input into the number
+            end += 1
+        return number
 
+    def gcd(self, x, y):
+        if(y == 0):
+            return x
+        else:
+            return self.gcd(y, x % y)
 
-def to_num(str):
-    # starting and ending pointer to get the substring from the input
-    start = 0
-    end = 0
-    number = ""
+    def __init__(self, str1, str2):
 
-    while(end < len(str)):
-        # checking the substring is present or not if present then change it to the number
-        if(word_dict.get(str[start:end+1])):
-            number += word_dict.get(str[start:end+1])
-            # moving to next character after finding substring
-            start = end+1
+        str1 = self.to_num(str1)
+        str2 = self.to_num(str2)
+        result = str(self.gcd(int(str1), int(str2)))
+        answer = ''
+        # converting number into the string
+        i = 0
+        while i < len(result):
+            answer += digit_dict.get(result[i])
+            i += 1
+        print("Output:", answer)
+        # function to find GCD
 
-        end += 1
-    return number
+        # function to convert string input into the number
 
 
 # taking the inputs
 str1 = input('Input 1 : ')
 str2 = input('Input 2 : ')
-
-num1 = to_num(str1)
-num2 = to_num(str2)
-
-result = gcd(int(num1), int(num2))
-answer = ''
-# converting number into the string
-for i in str(result):
-    answer += digit_dict.get(i)
-
-print("Output:", answer)
+obj = calc_gcd(str1, str2)
